@@ -1,23 +1,24 @@
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.HashMap;
 
 public class Index {
 	
-	protected HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> index; 
+	protected HashMap<Integer, HashMap<Integer, HashSet<Integer>>> index; 
 	
 	public Index() {
-		this.index = new HashMap<Integer, HashMap<Integer, ArrayList<Integer>>>();
+		this.index = new HashMap<Integer, HashMap<Integer, HashSet<Integer>>>();
 	}
 	
 	public void add(int first, int second, int thrid) {
 		Boolean containsP = this.index.containsKey(first);
 		if(containsP) {
-			HashMap<Integer, ArrayList<Integer>> hashP = this.index.get(first);
+			HashMap<Integer, HashSet<Integer>> hashP = this.index.get(first);
 			Boolean containsO = hashP.containsKey(second);
 			if(containsO) {
-				ArrayList<Integer> arrayPO = hashP.get(second);
-				this.sortedAdd(arrayPO, thrid);
+				HashSet<Integer> arrayPO = hashP.get(second);
+				//this.sortedAdd(arrayPO, thrid);
+				arrayPO.add(thrid);
 				
 			} else {
 				this.index.get(first).put(second, createSecond(thrid));
@@ -27,23 +28,24 @@ public class Index {
 		}
 	}
 	
-	protected HashMap<Integer, ArrayList<Integer>> createFirst(int o, int s) {
-		HashMap<Integer, ArrayList<Integer>> first = new HashMap<Integer, ArrayList<Integer>>();
+	protected HashMap<Integer, HashSet<Integer>> createFirst(int o, int s) {
+		HashMap<Integer, HashSet<Integer>> first = new HashMap<Integer, HashSet<Integer>>();
 		
 		first.put(o, createSecond(s));
 		
 		return first;
 	}
 	
-	protected ArrayList<Integer> createSecond(int s) {
-		ArrayList<Integer> second = new ArrayList<Integer>();
+	protected HashSet<Integer> createSecond(int s) {
+		HashSet<Integer> second = new HashSet<Integer>();
 		
 		second.add(s);
 		
 		return second;
 	}
 	
-	protected void sortedAdd(ArrayList<Integer> list, int newInt) {
+	/*
+	protected void sortedAdd(HashSet<Integer> list, int newInt) {
 		int index = 0;
 		for(; index < (list.size()) && (list.get(index) < newInt); index++) {;}
 		
@@ -51,8 +53,9 @@ public class Index {
 			list.add(index, newInt);
 		}
 	}
+	*/
 	
-	public HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> getIndex() {
+	public HashMap<Integer, HashMap<Integer, HashSet<Integer>>> getIndex() {
 		return this.index;
 	}
 }

@@ -1,0 +1,8 @@
+
+\.classpath
+
+*.csv
+
+data100K/
+
+data500K/
